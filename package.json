@@ -1,6 +1,6 @@
 {
   "name": "@codedungeon/vue-messenger",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "build": "53",
   "description": "Vue Messenger",
   "main": "dist/index",
