@@ -1,0 +1,33 @@
+{
+  "name": "@codedungeon/vue-messenger",
+  "version": "0.0.1",
+  "build": "10",
+  "description": "Vue Messenger",
+  "main": "dist/index",
+  "unpkg": "dist/vue-messenger.js",
+  "browser": {
+    "./sfc": "dist/vue-messenger.vue"
+  },
+  "contributors": [
+    {
+      "name": "Mike Erickson",
+      "email": "mike.erickson@codedungeon.io",
+      "url": "https://github.com/mikeerickson"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeerickson/vue-messenger"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikeerickson/vue-messenger/issues"
+  },
+  "homepage": "https://github.com/mikeerickson/vue-messenger/issues#readme",
+  "peerDependencies": {
+    "vue": "2.x"
+  }
+}
