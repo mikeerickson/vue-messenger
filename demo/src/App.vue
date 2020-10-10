@@ -29,7 +29,6 @@
             </span>
         </div>
         <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-        <!-- <hello-world></hello-world> -->
     </div>
 </template>
 

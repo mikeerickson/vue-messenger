@@ -12,15 +12,16 @@
                     <span class="vue-messenger-header-message-close" @click="closeMessage">&times;</span>
                     <slot>
                         <div class="vue-messenger-header-message-title">
-                            <span v-if="msgTitle.length > 0" :class="msgIconClass"></span>
+                            <span v-if="msgTitle.length > 0">
+                                <i :class="msgIconClass"></i>
+                            </span>
                             <span class="vue-messenger-header-message-title">{{ msgTitle }}</span>
                         </div>
                         <div class="vue-messenger-header-message-text">
-                            <span v-if="msgTitle.length === 0" :class="msgIconClass"></span>
+                            <span v-if="msgTitle.length === 0"><i :class="msgIconClass"></i></span>
                             <span v-html="msgText"></span>
                             <span v-if="moreMessageText.length > 0">
                                 <span v-show="showMoreMessageLink" @click="showMoreMessage">
-                                    &nbsp;
                                     <span class="vue-messenger-header-message-more" v-html="msgMoreLinkText"></span>
                                 </span>
                                 <transition name="fade">
@@ -150,8 +151,9 @@ export default {
                 this.moreMessage = this.moreMessageText.length > 0
                 this.moreMessageOpen = false
                 this.showMoreMessageLink = this.moreMessageText.length > 0
+
                 this.msgIcon = msgInfo.icon
-                this.msgIconClass = this.msgIcon ? `icon icon-${this.msgType}` : ""
+                this.msgIconClass = this.getMsgIconClass(this.msgType)
 
                 // all variables set, show the message
                 this.msgOpen = true
@@ -192,6 +194,30 @@ export default {
             }
             return marker
         },
+        getMsgIconClass(type = "info") {
+            let className = "fas fa-info-circle"
+            switch (type) {
+                case "info":
+                    className = "fas fa-info-circle"
+                    break
+                case "danger":
+                case "error":
+                    className = "fas fa-times-circle"
+                    break
+                case "success":
+                    className = "fas fa-check-circle"
+                    break
+                case "warning":
+                    className = "fas fa-exclamation-circle"
+                    break
+                default:
+                    className = "fas fa-info-circle"
+                    break
+            }
+
+            className = "icon " + className
+            return className
+        },
     },
     created() {
         var scripts = ["https://kit.fontawesome.com/86b695319c.js"]
@@ -230,7 +256,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// @import "css/fonts.css"
 .vue-messenger-template {
     font-size: inherit;
     line-height: inherit;
@@ -301,7 +326,6 @@ export default {
 }
 
 .icon {
-    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     display: inline-block;
     font-style: normal;
@@ -309,19 +333,5 @@ export default {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     padding-right: 4px;
-}
-
-.icon-warning::before {
-    content: "\f06a";
-}
-.icon-danger::before,
-.icon-error::before {
-    content: "\f057";
-}
-.icon-info::before {
-    content: "\f05a";
-}
-.icon-success::before {
-    content: "\f058";
 }
 </style>

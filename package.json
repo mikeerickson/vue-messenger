@@ -1,7 +1,7 @@
 {
   "name": "@codedungeon/vue-messenger",
   "version": "0.1.0",
-  "build": "53",
+  "build": "59",
   "description": "Vue Messenger",
   "main": "dist/index",
   "module": "dist/vue-messenger.esm.js",
@@ -21,11 +21,12 @@
     "build": "npm run bump && NODE_ENV=production webpack --progress --hide-modules",
     "build:watch": "npm run bump && NODE_ENV=production webpack --progress --hide-modules --watch",
     "lint": "Echo \"*** Linting Not Enabled ***\"",
-    "dev": "npm run bump && NODE_ENV=development webpack",
+    "dev": "NODE_ENV=development webpack --progress --hide-modules",
     "test": "Echo \"*** Tests Incomplete ***\"",
     "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files",
     "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'",
-    "prepublish": "npm run lint && npm run test && npm run build"
+    "prepublish": "npm run lint && npm run test && npm run build",
+    "watch": "NODE_ENV=development webpack --progress --hide-modules --watch"
   },
   "repository": {
     "type": "git",
