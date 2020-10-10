@@ -4,7 +4,77 @@
 
 Vue Messenger is the vue partner to Codedungeon messenger suite
 
+## Installation
+
+Using `npm`
+
+```bash
+npm i @codedungeon/vue-messenger
+```
+
+Using `yarn`
+
+```bash
+yarn @codedungeon/vue-messenger
+```
+
 ## Usage
+
+-   Vue Messenger requires at least the `title` or `text` prop
+-   If `title` and `text` are supplied, `title` will be **bold**
+-   If only `title` is supplied, it will be moved to `text` attribute (no title displayed)
+
+Minimal
+
+```vue
+<crm-message type="info" title="title" text="description">
+```
+
+Success Message with icon
+
+```vue
+<crm-message type="success" title="Success" text="Contact Updated Successfully" :icon="true">
+```
+
+Warning Message with auto close
+
+```vue
+<crm-message type="warning" title="Warning" text="The light is turning red soon" :auto-close="true" auto-close-delay="2000" :icon="true">
+```
+
+```vue
+...
+errors from parent data
+errors = ["error message one","error message two"]
+...
+<crm-message type="error" title="Validation Failed" text="There were 2 errors" :more="errors" :icon="true">
+```
+
+## Props
+
+Vue Messenger provides the following `props`
+
+| **Prop**           | **Type**                                     | **Description**                                       |
+| ------------------ | -------------------------------------------- | ----------------------------------------------------- |
+| `type`             | String (default: `"info"`)                   | Message type                                          |
+| _options_          | alert, danger, error, info, success, warning | Available types                                       |
+| `title`            | String (default: `""`)                       | Message title                                         |
+| `text`             | String (default: `""`)                       | Message text                                          |
+| `auto-close`       | Boolean (default: `false`)                   | Message auto close                                    |
+| `auto-close-delay` | Number (default: `7500`)                     | Number of milliseconds                                |
+| `more`             | [String, Array] (default: `""`)              | Additional text to display when `show more` displayed |
+| `more-link-text`   | [String] (default: `"show more"`)            | Message displayed when `more` supplied                |
+| `icon`             | [Boolean] (default: `false`)                 | Message icon                                          |
+| `debug`            | [Boolean] (default: `false`)                 | Console log debug information                         |
+
+## Message
+
+You can procedurally update message from parent component using an the component `updateMessage` method which accepts on object of message options, containing one more `props` keys
+
+```js
+let msgOptions = { type: "success", title: "Success", text: "Contact Updated Successfully" }
+this.$refs["crm-message"].updateMessage(msgOptions)
+```
 
 ## Contributing
 

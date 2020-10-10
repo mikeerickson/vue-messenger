@@ -52,7 +52,7 @@ export default {
         },
         text: { type: String, default: "" },
         autoClose: { type: Boolean, default: false },
-        autoCloseDelay: { type: Number, default: 7500 },
+        autoCloseDelay: { type: [Number, String], default: 7500 },
         more: { type: [Array, String], default: "" },
         moreLinkText: { type: String, default: "show more" },
         icon: { type: [Boolean, String], default: false },
@@ -119,7 +119,7 @@ export default {
                 this.msgMoreLinkText = msgInfo.moreLinkText
                 this.moreMessageText = ""
                 this.msgAutoClose = msgInfo.autoClose
-                this.msgAutoCloseDelay = msgInfo.autoCloseDelay
+                this.msgAutoCloseDelay = parseInt(msgInfo.autoCloseDelay)
                 this.msgTypeClass = `vue-messenger-header-message-${this.msgType}`
 
                 this.moreMessage = false
@@ -205,11 +205,9 @@ export default {
         this.msgTypeClass = `vue-messenger-header-message-${this.type}`
         this.msgMore = this.more
         this.msgAutoClose = this.autoClose
-        this.msgAutoCloseDelay = this.autoCloseDelay
+        this.msgAutoCloseDelay = parseInt(this.autoCloseDelay)
 
         this.msgOpen = this.msgTitle.length > 0 || this.msgText.length > 0
-        this.msgOpen = true
-        this.debug = true
 
         if (this.msgAutoClose) {
             setTimeout(() => {
