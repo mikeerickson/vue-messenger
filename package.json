@@ -1,12 +1,13 @@
 {
   "name": "@codedungeon/vue-messenger",
   "version": "0.0.1",
-  "build": "10",
+  "build": "28",
   "description": "Vue Messenger",
-  "main": "dist/index",
-  "unpkg": "dist/vue-messenger.js",
+  "main": "dist/vue-messenger.umd.js",
+  "module": "dist/vue-messenger.esn.js",
+  "unpkg": "dist/vue-component.min.js",
   "browser": {
-    "./sfc": "dist/vue-messenger.vue"
+    "./sfc": "sr/vue-messenger.vue"
   },
   "contributors": [
     {
@@ -16,7 +17,15 @@
     }
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bump": "./tasks/bumpBuild.js --verbose",
+    "prepublish": "npm run build",
+    "serve": "vue-cli-service serve",
+    "vbuild": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "dev": "npm run bump && NODE_ENV=development webpack",
+    "build": "npm run bump && NODE_ENV=production webpack --progress --hide-modules",
+    "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist' --tags 'review,note' --inline-files",
+    "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'"
   },
   "repository": {
     "type": "git",
@@ -27,7 +36,30 @@
     "url": "https://github.com/mikeerickson/vue-messenger/issues"
   },
   "homepage": "https://github.com/mikeerickson/vue-messenger/issues#readme",
-  "peerDependencies": {
-    "vue": "2.x"
+  "devDependencies": {
+    "@rollup/plugin-buble": "0.21.3",
+    "@rollup/plugin-commonjs": "15.1.0",
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.5",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-stage-3": "6.24.1",
+    "clean-webpack-plugin": "0.1.19",
+    "colors": "1.4.0",
+    "copy-webpack-plugin": "4.5.4",
+    "cross-env": "5.0.5",
+    "css-loader": "0.28.11",
+    "file-loader": "1.1.11",
+    "sass": "1.27.0",
+    "sass-loader": "10.0.3",
+    "sync-exec": "0.6.2",
+    "uglifyjs-webpack-plugin": "2.2.0",
+    "vue": "2.6.12",
+    "vue-loader": "14.2.4",
+    "vue-template-compiler": "2.6.12",
+    "webpack": "4.44.2",
+    "webpack-cleanup-plugin": "0.5.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "2.9.7",
+    "webpack-merge": "4.1.5"
   }
 }

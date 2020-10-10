@@ -6,10 +6,13 @@ Vue Messenger is the vue partner to Codedungeon messenger suite
 
 ## Usage
 
-
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for details.
 
 ## Security
 
