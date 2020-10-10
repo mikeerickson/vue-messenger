@@ -24,6 +24,7 @@
     "lint": "vue-cli-service lint",
     "dev": "npm run bump && NODE_ENV=development webpack",
     "build": "npm run bump && NODE_ENV=production webpack --progress --hide-modules",
+    "test": "Echo \"Tests Incomplete\"",
     "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist' --tags 'review,note' --inline-files",
     "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'"
   },
