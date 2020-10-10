@@ -193,6 +193,14 @@ export default {
             return marker
         },
     },
+    created() {
+        var scripts = ["https://kit.fontawesome.com/86b695319c.js"]
+        scripts.forEach((script) => {
+            let tag = document.createElement("script")
+            tag.setAttribute("src", script)
+            document.head.appendChild(tag)
+        })
+    },
     mounted() {
         if (this.title === "" && this.text === "") {
             this.closeMessage()
@@ -222,7 +230,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "css/fonts.css";
+// @import "css/fonts.css"
 .vue-messenger-template {
     font-size: inherit;
     line-height: inherit;

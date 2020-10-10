@@ -1,7 +1,7 @@
 {
   "name": "@codedungeon/vue-messenger",
   "version": "0.0.6",
-  "build": "40",
+  "build": "53",
   "description": "Vue Messenger",
   "main": "dist/index",
   "module": "dist/vue-messenger.esm.js",
