@@ -1,7 +1,7 @@
 {
   "name": "@codedungeon/vue-messenger",
   "version": "0.0.3",
-  "build": "30",
+  "build": "31",
   "description": "Vue Messenger",
   "main": "dist/vue-messenger.umd.js",
   "module": "dist/vue-messenger.esn.js",
@@ -18,15 +18,14 @@
   ],
   "scripts": {
     "bump": "./tasks/bumpBuild.js --verbose",
-    "prepublish": "npm run build",
-    "serve": "vue-cli-service serve",
-    "vbuild": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "dev": "npm run bump && NODE_ENV=development webpack",
     "build": "npm run bump && NODE_ENV=production webpack --progress --hide-modules",
-    "test": "Echo \"Tests Incomplete\"",
-    "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist' --tags 'review,note' --inline-files",
-    "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'"
+    "build:watch": "npm run bump && NODE_ENV=production webpack --progress --hide-modules --watch",
+    "lint": "Echo \"*** Linting Not Enabled ***\"",
+    "dev": "npm run bump && NODE_ENV=development webpack",
+    "test": "Echo \"*** Tests Incomplete ***\"",
+    "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files",
+    "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'",
+    "prepublish": "npm run lint && npm run test && npm run build"
   },
   "repository": {
     "type": "git",

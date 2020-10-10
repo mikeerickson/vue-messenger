@@ -96,9 +96,9 @@ export default {
                 let msgInfo = Object.assign(defaultParams, data)
 
                 if (msgInfo.debug) {
-                    console.log("====== DEBUG =====")
+                    console.log("====== VUE MESSENGER DEBUG =====")
                     console.log(this)
-                    console.log("====== DEBUG =====")
+                    console.log("====== VUE MESSENGER DEBUG =====")
                 }
 
                 if (this.msgType === "default") {
