@@ -6,7 +6,6 @@
                 Licensed under the MIT license.  See LICENSE in the project root for license information.
             -->
         </div>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
         <div v-bind="$attrs" v-on="$listeners" v-if="msgOpen && (msgText.length > 0 || msgTitle.length > 0)">
             <transition name="fade" appear>
                 <div class="vue-messenger-header-message" :class="msgTypeClass">
@@ -223,6 +222,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "css/fonts.css";
 .vue-messenger-template {
     font-size: inherit;
     line-height: inherit;

@@ -34,6 +34,19 @@ var config = {
                 test: /\.css$/,
                 loader: "style!less!css",
             },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [{ loader: "file-loader" }],
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+                exclude: /node_modules/,
+                loader: "file-loader",
+            },
+            {
+                test: /\.(eot|ttf)$/,
+                loader: "file-loader",
+            },
         ],
     },
     plugins: [
