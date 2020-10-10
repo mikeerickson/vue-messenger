@@ -13,3 +13,6 @@ prettier.config.js
 tasks/
 test/
 webpack.config.js
+*.taskpaper
+NOTES.md
+src/

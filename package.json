@@ -1,13 +1,13 @@
 {
   "name": "@codedungeon/vue-messenger",
   "version": "0.0.2",
-  "build": "29",
+  "build": "30",
   "description": "Vue Messenger",
   "main": "dist/vue-messenger.umd.js",
   "module": "dist/vue-messenger.esn.js",
   "unpkg": "dist/vue-component.min.js",
   "browser": {
-    "./sfc": "sr/vue-messenger.vue"
+    "./sfc": "dist/vue-messenger.vue"
   },
   "contributors": [
     {
