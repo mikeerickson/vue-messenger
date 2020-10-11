@@ -260,6 +260,7 @@ export default {
 #vue-messenger-copyright {
     display: none;
 }
+
 .vue-messenger-more-divider {
     padding-bottom: 0;
     &-info {
@@ -284,6 +285,7 @@ export default {
     font-size: inherit;
     line-height: inherit;
 }
+
 .vue-messenger-header-message {
     background-color: #f2f2f3;
     margin: 0;
@@ -334,14 +336,6 @@ export default {
     padding-left: 5px;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-}
-
 .vue-messenger-more-items {
     list-style: none;
     padding: 0;
@@ -357,5 +351,13 @@ export default {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     padding-right: 4px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
 }
 </style>
