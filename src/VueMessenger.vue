@@ -32,7 +32,7 @@
                                         {{ msgMore }}
                                     </span>
                                     <ul v-else class="vue-messenger-more-items">
-                                        <li :key="item" v-for="item in msgMore">{{ getMarker(msgType) }} {{ item }}</li>
+                                        <li :key="index" v-for="(item, index) in msgMore">{{ getMarker(msgType) }} {{ item }}</li>
                                     </ul>
                                 </span>
                             </span>
@@ -90,7 +90,7 @@ export default {
         updateMessage(data = {}) {
             this.closeMessage()
 
-            this.$nextTick(function() {
+            this.$nextTick(function () {
                 let defaultParams = {
                     type: "info",
                     title: "",
@@ -217,7 +217,7 @@ export default {
     },
     created() {
         var scripts = ["https://kit.fontawesome.com/86b695319c.js"]
-        scripts.forEach(script => {
+        scripts.forEach((script) => {
             let tag = document.createElement("script")
             tag.setAttribute("src", script)
             document.head.appendChild(tag)
@@ -243,15 +243,13 @@ export default {
 
         this.msgOpen = this.msgTitle.length > 0 || this.msgDescription.length > 0
 
-        console.log(this.msgMore)
-
         if (this.msgAutoClose) {
             setTimeout(() => {
                 this.closeMessage()
             }, this.msgAutoCloseDelay)
         }
 
-        this.$on("vue-messenger_MESSAGE_UPDATE", data => {
+        this.$on("vue-messenger_MESSAGE_UPDATE", (data) => {
             console.log(data)
         })
     },

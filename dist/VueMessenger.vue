@@ -32,7 +32,7 @@
                                         {{ msgMore }}
                                     </span>
                                     <ul v-else class="vue-messenger-more-items">
-                                        <li :key="item" v-for="item in msgMore">{{ getMarker(msgType) }} {{ item }}</li>
+                                        <li :key="index" v-for="(item, index) in msgMore">{{ getMarker(msgType) }} {{ item }}</li>
                                     </ul>
                                 </span>
                             </span>
@@ -242,8 +242,6 @@ export default {
         this.moreMessageDividierClass = `vue-messenger-more-divider-${this.msgType}`
 
         this.msgOpen = this.msgTitle.length > 0 || this.msgDescription.length > 0
-
-        console.log(this.msgMore)
 
         if (this.msgAutoClose) {
             setTimeout(() => {
