@@ -2,12 +2,19 @@
   "name": "@codedungeon/vue-messenger",
   "version": "0.1.1",
   "build": "59",
-  "description": "Vue Messenger",
+  "description": "Vue Messenger provides an expressive suite of features and customization",
+  "keywords": [
+    "vue",
+    "messenger",
+    "message",
+    "alert",
+    "notification",
+    "codedungeon"
+  ],
   "main": "dist/index",
-  "module": "dist/vue-messenger.esm.js",
-  "unpkg": "dist/vue-component.min.js",
+  "unpkg": "dist/vue-component.js",
   "browser": {
-    "./sfc": "dist/vue-messenger.vue"
+    "./sfc": "dist/VueMessenger.vue"
   },
   "contributors": [
     {
@@ -20,9 +27,9 @@
     "bump": "./tasks/bumpBuild.js --verbose",
     "build": "npm run bump && NODE_ENV=production webpack --progress --hide-modules",
     "build:watch": "npm run bump && NODE_ENV=production webpack --progress --hide-modules --watch",
-    "lint": "Echo \"*** Linting Not Enabled ***\"",
+    "lint": "./tasks/lint.js",
     "dev": "NODE_ENV=development webpack --progress --hide-modules",
-    "test": "Echo \"*** Tests Incomplete ***\"",
+    "test": "./tasks/test.js",
     "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files",
     "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'",
     "prepublish": "npm run lint && npm run test && npm run build",
@@ -38,6 +45,7 @@
   },
   "homepage": "https://github.com/mikeerickson/vue-messenger/issues#readme",
   "devDependencies": {
+    "@codedungeon/messenger": "0.7.0",
     "@rollup/plugin-buble": "0.21.3",
     "@rollup/plugin-commonjs": "15.1.0",
     "babel-core": "6.26.3",

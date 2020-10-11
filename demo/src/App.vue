@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="header">
-            <vue-messenger ref="vue-messenger" :debug="true" type="info" title="title" text="text"></vue-messenger>
+            <vue-messenger ref="vue-messenger" :debug="true" type="error" :icon="true" title="title" description="message description" :more="['item 1', 'item 2']"></vue-messenger>
         </div>
         <div id="vue-messenger-demo">
             <br />
@@ -21,6 +21,7 @@
                 <button @click="updateMessage('danger')">Danger Message</button>
                 <br />
                 <br />
+                <button @click="updateMessage('success', 'more message terxt')">Success Message w/ More Text</button>
                 <button @click="updateMessage('success', ['item 1', 'item 2'])">Success Message w/ More</button>
                 <button @click="updateMessage('danger', ['item 1', 'item 2'])">Danger Message w/ More</button>
                 <button @click="updateMessage('error', ['item 1', 'item 2'])">Error Message w/ More</button>
@@ -49,10 +50,18 @@ export default {
             this.$refs["vue-messenger"].updateMessage({ type, title: "Title", icon: this.icon, debug: this.debug })
         },
         textMessageOnly(type = "default") {
-            this.$refs["vue-messenger"].updateMessage({ type, text: "Text Only", icon: this.icon, debug: this.debug })
+            this.$refs["vue-messenger"].updateMessage({ type, description: "Text Only", icon: this.icon, debug: this.debug })
         },
         updateMessage(type = "info", more = null) {
-            this.$refs["vue-messenger"].updateMessage({ type, title: "Hello", text: "World", more, moreLinkText: "click me", icon: this.icon, debug: this.debug })
+            this.$refs["vue-messenger"].updateMessage({
+                type,
+                title: "Message Title",
+                description: "Message Description",
+                more,
+                moreLinkdescription: "click me",
+                icon: this.icon,
+                debug: this.debug,
+            })
         },
     },
 }
@@ -87,5 +96,6 @@ html {
 
 button {
     margin-right: 10px;
+    // width: 120px;
 }
 </style>

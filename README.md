@@ -20,26 +20,26 @@ yarn @codedungeon/vue-messenger
 
 ## Usage
 
--   Vue Messenger requires at least the `title` or `text` prop
--   If `title` and `text` are supplied, `title` will be **bold**
--   If only `title` is supplied, it will be moved to `text` attribute (no title displayed)
+-   Vue Messenger requires at least the `title` or `description` prop
+-   If `title` and `description` are supplied, `title` will be **bold**
+-   If only `title` is supplied, it will be moved to `description` attribute (no title displayed)
 
 Minimal
 
 ```vue
-<crm-message type="info" title="title" text="description">
+<crm-message type="info" description="Message Title" description="Message Description">
 ```
 
 Success Message with icon
 
 ```vue
-<crm-message type="success" title="Success" text="Contact Updated Successfully" :icon="true">
+<crm-message type="success" description="Success" description="Contact Updated Successfully" :icon="true">
 ```
 
 Warning Message with auto close
 
 ```vue
-<crm-message type="warning" title="Warning" text="The light is turning red soon" :auto-close="true" auto-close-delay="2000" :icon="true">
+<crm-message type="warning" description="Warning" description="The light is turning red soon" :auto-close="true" auto-close-delay="2000" :icon="true">
 ```
 
 ```vue
@@ -47,7 +47,7 @@ Warning Message with auto close
 errors from parent data
 errors = ["error message one","error message two"]
 ...
-<crm-message type="error" title="Validation Failed" text="There were 2 errors" :more="errors" :icon="true">
+<crm-message type="error" description="Validation Failed" description="There were 2 errors" :more="errors" :icon="true">
 ```
 
 ## Props
@@ -59,12 +59,12 @@ Vue Messenger provides the following `props`
 | `type`             | String (default: `"info"`)                   | Message type                                          |
 | _options_          | alert, danger, error, info, success, warning | Available types                                       |
 | `title`            | String (default: `""`)                       | Message title                                         |
-| `text`             | String (default: `""`)                       | Message text                                          |
+| `description`      | String (default: `""`)                       | Message description                                   |
+| `icon`             | [Boolean] (default: `false`)                 | Message icon                                          |
 | `auto-close`       | Boolean (default: `false`)                   | Message auto close                                    |
 | `auto-close-delay` | Number (default: `7500`)                     | Number of milliseconds                                |
 | `more`             | [String, Array] (default: `""`)              | Additional text to display when `show more` displayed |
 | `more-link-text`   | [String] (default: `"show more"`)            | Message displayed when `more` supplied                |
-| `icon`             | [Boolean] (default: `false`)                 | Message icon                                          |
 | `debug`            | [Boolean] (default: `false`)                 | Console log debug information                         |
 
 ## Message
@@ -72,7 +72,7 @@ Vue Messenger provides the following `props`
 You can procedurally update message from parent component using an the component `updateMessage` method which accepts on object of message options, containing one more `props` keys
 
 ```js
-let msgOptions = { type: "success", title: "Success", text: "Contact Updated Successfully" }
+let msgOptions = { type: "success", title: "Success", description: "Contact Updated Successfully" }
 this.$refs["crm-message"].updateMessage(msgOptions)
 ```
 

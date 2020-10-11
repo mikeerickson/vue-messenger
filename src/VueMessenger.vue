@@ -2,31 +2,39 @@
     <div class="vue-messenger-template">
         <div id="vue-messenger-copyright">
             <!--
+                Vue Messenger
                 Copyright (c) 2020 Mike Erickson / Codedungeon.  All rights reserved.
                 Licensed under the MIT license.  See LICENSE in the project root for license information.
             -->
         </div>
-        <div v-bind="$attrs" v-on="$listeners" v-if="msgOpen && (msgText.length > 0 || msgTitle.length > 0)">
+        <div v-bind="$attrs" v-on="$listeners" v-if="msgOpen && (msgDescription.length > 0 || msgTitle.length > 0)">
             <transition name="fade" appear>
                 <div class="vue-messenger-header-message" :class="msgTypeClass">
                     <span class="vue-messenger-header-message-close" @click="closeMessage">&times;</span>
                     <slot>
                         <div class="vue-messenger-header-message-title">
-                            <span v-if="msgTitle.length > 0">
+                            <span v-if="msgIcon && msgTitle.length > 0">
                                 <i :class="msgIconClass"></i>
                             </span>
                             <span class="vue-messenger-header-message-title">{{ msgTitle }}</span>
                         </div>
                         <div class="vue-messenger-header-message-text">
-                            <span v-if="msgTitle.length === 0"><i :class="msgIconClass"></i></span>
-                            <span v-html="msgText"></span>
-                            <span v-if="moreMessageText.length > 0">
+                            <span v-if="msgIcon && msgTitle.length === 0"><i :class="msgIconClass"></i></span>
+                            <!-- <span v-else><i style="color: transparent" :class="msgIconClass"></i></span> -->
+                            <span v-html="msgDescription"></span>
+                            <span v-if="moreMessageType.length > 0">
                                 <span v-show="showMoreMessageLink" @click="showMoreMessage">
                                     <span class="vue-messenger-header-message-more" v-html="msgMoreLinkText"></span>
                                 </span>
-                                <transition name="fade">
-                                    <span v-show="moreMessageOpen" v-html="moreMessageText"></span>
-                                </transition>
+                                <span v-show="moreMessageOpen">
+                                    <hr :class="moreMessageDividierClass" />
+                                    <span v-if="moreMessageType === 'text'">
+                                        {{ msgMore }}
+                                    </span>
+                                    <ul v-else class="vue-messenger-more-items">
+                                        <li :key="item" v-for="item in msgMore">{{ getMarker(msgType) }} {{ item }}</li>
+                                    </ul>
+                                </span>
                             </span>
                         </div>
                     </slot>
@@ -37,7 +45,6 @@
 </template>
 
 <script>
-// import Name from "./Name.vue"
 export default {
     name: "vue-messenger",
     components: {},
@@ -50,7 +57,7 @@ export default {
             type: String,
             default: "",
         },
-        text: { type: String, default: "" },
+        description: { type: String, default: "" },
         autoClose: { type: Boolean, default: false },
         autoCloseDelay: { type: [Number, String], default: 7500 },
         more: { type: [Array, String], default: "" },
@@ -65,28 +72,29 @@ export default {
             msgTitle: "",
             msgType: "",
             msgTypeClass: "",
-            msgText: "",
+            msgDescription: "",
             msgAutoClose: false,
             msgAutoCloseDelay: 7500,
             msgMore: [],
             moreMessage: false,
-            moreMessageText: "",
+            moreMessageType: "",
             moreMessageOpen: false,
             showMoreMessageLink: true,
             msgMoreLinkText: "show more",
             msgIcon: false,
             msgIconClass: "",
+            moreMessageDividierClass: "",
         }
     },
     methods: {
         updateMessage(data = {}) {
             this.closeMessage()
 
-            this.$nextTick(function () {
+            this.$nextTick(function() {
                 let defaultParams = {
                     type: "info",
                     title: "",
-                    text: "",
+                    description: "",
                     more: "",
                     moreLinkText: "show more",
                     autoClose: false,
@@ -108,52 +116,28 @@ export default {
                 this.msgType = this.msgTypeOptions.includes(msgInfo.type) ? msgInfo.type : "info"
 
                 this.msgTitle = msgInfo.title
-                this.msgText = msgInfo.text
+                this.msgDescription = msgInfo.description
 
                 // if we have only supplied message title, move it to message text
-                if (this.msgText.length === 0) {
-                    this.msgText = this.msgTitle
+                if (this.msgDescription.length === 0) {
+                    this.msgDescription = this.msgTitle
                     this.msgTitle = ""
                 }
                 this.msgMore = msgInfo.more
                 this.msgMoreLinkText = msgInfo.moreLinkText
-                this.moreMessageText = ""
                 this.msgAutoClose = msgInfo.autoClose
                 this.msgAutoCloseDelay = parseInt(msgInfo.autoCloseDelay)
                 this.msgTypeClass = `vue-messenger-header-message-${this.msgType}`
 
                 this.moreMessage = false
-                this.moreMessageText = ""
-                if (Array.isArray(this.msgMore)) {
-                    if (this.msgMore.length > 0) {
-                        this.moreMessageText = "<br/>"
-                        let marker = this.getMarker(this.msgType)
-                        this.moreMessageText += `<ul class="vue-messenger-more-message-text-list" style="list-style: none; margin-left: 0; padding-left: 0;">`
-                        this.msgMore.forEach((item) => {
-                            this.moreMessageText += `<li>${marker} ${item}</li>`
-                        })
-                        this.moreMessageText += "</ul>"
-                    }
-                } else {
-                    if (this.msgMore === null) {
-                        this.moreMessageText = ""
-                    } else {
-                        if (this.msgMore.length > 0) {
-                            this.moreMessageText = "<br/><br/>" + this.msgMore
-                        }
-                        if (this.msgText.length === 0) {
-                            this.msgText = this.msgMore
-                            this.moreMessageText = ""
-                        }
-                    }
-                }
-
-                this.moreMessage = this.moreMessageText.length > 0
+                this.moreMessageType = this.msgMore ? (Array.isArray(this.msgMore) ? "array" : "text") : ""
+                this.moreMessage = this.moreMessageType.length > 0
                 this.moreMessageOpen = false
-                this.showMoreMessageLink = this.moreMessageText.length > 0
+                this.showMoreMessageLink = this.moreMessageType.length > 0
 
                 this.msgIcon = msgInfo.icon
                 this.msgIconClass = this.getMsgIconClass(this.msgType)
+                this.moreMessageDividierClass = `vue-messenger-more-divider-${this.msgType}`
 
                 // all variables set, show the message
                 this.msgOpen = true
@@ -218,29 +202,48 @@ export default {
             className = "icon " + className
             return className
         },
+        getMoreDividerClass(type = "info") {
+            let className = "vue-messenger-more-divider"
+            switch (type) {
+                case "error":
+                    className = "vue-messenger-more-divider-error"
+                    break
+                case "success":
+                    className = "vue-messenger-more-divider-error"
+                    break
+            }
+            return className
+        },
     },
     created() {
         var scripts = ["https://kit.fontawesome.com/86b695319c.js"]
-        scripts.forEach((script) => {
+        scripts.forEach(script => {
             let tag = document.createElement("script")
             tag.setAttribute("src", script)
             document.head.appendChild(tag)
         })
     },
     mounted() {
-        if (this.title === "" && this.text === "") {
+        if (this.title === "" && this.description === "") {
             this.closeMessage()
         }
 
-        this.msgText = this.text
+        this.msgDescription = this.description
         this.msgType = this.msgTypeOptions.includes(this.type) ? this.type : "info"
         this.msgTitle = this.title
         this.msgTypeClass = `vue-messenger-header-message-${this.type}`
         this.msgMore = this.more
+        this.moreMessageType = this.msgMore ? (Array.isArray(this.msgMore) ? "array" : "text") : ""
+
         this.msgAutoClose = this.autoClose
         this.msgAutoCloseDelay = parseInt(this.autoCloseDelay)
+        this.msgIcon = this.icon
+        this.msgIconClass = this.getMsgIconClass(this.msgType)
+        this.moreMessageDividierClass = `vue-messenger-more-divider-${this.msgType}`
 
-        this.msgOpen = this.msgTitle.length > 0 || this.msgText.length > 0
+        this.msgOpen = this.msgTitle.length > 0 || this.msgDescription.length > 0
+
+        console.log(this.msgMore)
 
         if (this.msgAutoClose) {
             setTimeout(() => {
@@ -248,7 +251,7 @@ export default {
             }, this.msgAutoCloseDelay)
         }
 
-        this.$on("vue-messenger_MESSAGE_UPDATE", (data) => {
+        this.$on("vue-messenger_MESSAGE_UPDATE", data => {
             console.log(data)
         })
     },
@@ -256,15 +259,39 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#vue-messenger-copyright {
+    display: none;
+}
+.vue-messenger-more-divider {
+    padding-bottom: 0;
+    &-info {
+        // border-top: 1px solid #e7e7e7;
+        border-top: 1px solid lightgray;
+    }
+    &-error {
+        border-top: 1px solid pink;
+    }
+    &-danger {
+        border-top: 1px solid pink;
+    }
+    &-success {
+        border-top: 1px solid lightgreen;
+    }
+    &-warning {
+        border-top: 1px solid #e4b06e;
+    }
+}
+
 .vue-messenger-template {
     font-size: inherit;
     line-height: inherit;
 }
 .vue-messenger-header-message {
     background-color: #f2f2f3;
-    padding: 10px;
     margin: 0;
     color: #85888e;
+    padding-top: 5px;
+    padding: 5px 10px 10px 10px;
 
     &-error {
         background-color: #fceeee;
@@ -289,9 +316,7 @@ export default {
 .vue-messenger-header-message-close {
     float: right;
     color: #c7c7cd;
-    padding-top: 2px;
-    padding-right: 10px;
-    font-size: 15px;
+    font-size: 20px;
     cursor: pointer;
     opacity: 1;
 }
@@ -308,13 +333,7 @@ export default {
 .vue-messenger-header-message-more {
     text-decoration: underline;
     cursor: pointer;
-}
-
-.vue-messenger-more-message-text {
-    ul {
-        list-style: none;
-        line-height: 60px;
-    }
+    padding-left: 5px;
 }
 
 .fade-enter-active,
@@ -323,6 +342,13 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+}
+
+.vue-messenger-more-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 5px;
 }
 
 .icon {
