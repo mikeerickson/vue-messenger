@@ -12,7 +12,7 @@
     "codedungeon"
   ],
   "main": "dist/index",
-  "unpkg": "dist/vue-component.js",
+  "unpkg": "dist/vue-messenger.js",
   "browser": {
     "./sfc": "dist/VueMessenger.vue"
   },
