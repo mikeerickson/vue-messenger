@@ -1,6 +1,6 @@
 {
   "name": "@codedungeon/vue-messenger",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "build": "64",
   "description": "Vue Messenger provides an expressive suite of features and customization",
   "keywords": [
