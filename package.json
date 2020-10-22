@@ -63,7 +63,6 @@
     "jest": "26.5.3",
     "sass": "1.27.0",
     "sass-loader": "10.0.3",
-    "sync-exec": "0.6.2",
     "uglifyjs-webpack-plugin": "2.2.0",
     "vue": "2.6.12",
     "vue-loader": "14.2.4",
