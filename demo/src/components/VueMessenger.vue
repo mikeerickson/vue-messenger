@@ -3,14 +3,14 @@
         <div id="vue-messenger-copyright">
             <!--
                 Vue Messenger
-                Copyright (c) 2020 Mike Erickson / Codedungeon.  All rights reserved.
+                Copyright (c) 2020-2021 Mike Erickson / Codedungeon.  All rights reserved.
                 Licensed under the MIT license.  See LICENSE in the project root for license information.
             -->
         </div>
         <div v-bind="$attrs" v-on="$listeners" v-if="msgOpen && (msgDescription.length > 0 || msgTitle.length > 0)">
             <transition name="fade" appear>
                 <div class="vue-messenger-header-message" :class="msgTypeClass">
-                    <span class="vue-messenger-header-message-close" @click="closeMessage">&times;</span>
+                    <span class="vue-messenger-header-message-close" :class="msgCloseClass" @click="closeMessage">&times;</span>
                     <slot>
                         <div class="vue-messenger-header-message-title">
                             <span v-if="msgIcon && msgTitle.length > 0">
@@ -72,6 +72,7 @@ export default {
             msgTitle: "",
             msgType: "",
             msgTypeClass: "",
+            msgCloseClass: "",
             msgDescription: "",
             msgAutoClose: false,
             msgAutoCloseDelay: 7500,
@@ -90,7 +91,7 @@ export default {
         updateMessage(data = {}) {
             this.closeMessage()
 
-            this.$nextTick(function () {
+            this.$nextTick(() => {
                 let defaultParams = {
                     type: "info",
                     title: "",
@@ -128,7 +129,7 @@ export default {
                 this.msgAutoClose = msgInfo.autoClose
                 this.msgAutoCloseDelay = parseInt(msgInfo.autoCloseDelay)
                 this.msgTypeClass = `vue-messenger-header-message-${this.msgType}`
-
+                this.msgCloseClass = `vue-messenger-header-message-close-${this.msgType}`
                 this.moreMessage = false
                 this.moreMessageType = this.msgMore ? (Array.isArray(this.msgMore) ? "array" : "text") : ""
                 this.moreMessage = this.moreMessageType.length > 0
@@ -159,6 +160,8 @@ export default {
             if (this.msgOpen) {
                 this.msgOpen = false
             }
+            this.$emit("closeMessage")
+            this.$emit("close")
         },
         getMarker(type = "info") {
             let marker = "‣"
@@ -217,7 +220,7 @@ export default {
     },
     created() {
         var scripts = ["https://kit.fontawesome.com/86b695319c.js"]
-        scripts.forEach((script) => {
+        scripts.forEach(script => {
             let tag = document.createElement("script")
             tag.setAttribute("src", script)
             document.head.appendChild(tag)
@@ -232,6 +235,7 @@ export default {
         this.msgType = this.msgTypeOptions.includes(this.type) ? this.type : "info"
         this.msgTitle = this.title
         this.msgTypeClass = `vue-messenger-header-message-${this.type}`
+        this.msgCloseClass = `vue-messenger-header-message-close-${this.type}`
         this.msgMore = this.more
         this.moreMessageType = this.msgMore ? (Array.isArray(this.msgMore) ? "array" : "text") : ""
 
@@ -248,8 +252,7 @@ export default {
                 this.closeMessage()
             }, this.msgAutoCloseDelay)
         }
-
-        this.$on("vue-messenger_MESSAGE_UPDATE", (data) => {
+        this.$on("vue-messenger_MESSAGE_UPDATE", data => {
             console.log(data)
         })
     },
@@ -319,6 +322,25 @@ export default {
     font-size: 20px;
     cursor: pointer;
     opacity: 1;
+
+    &-error {
+        background-color: #fceeee;
+        color: #ec8b86;
+    }
+
+    &-danger {
+        background-color: #fceeee;
+        color: #ec8b86;
+    }
+
+    &-success {
+        background-color: #eff7e9;
+        color: #80bf5e;
+    }
+    &-warning {
+        background-color: #fcf5ea;
+        color: #e4b06e;
+    }
 }
 
 .vue-messenger-header-message-title {

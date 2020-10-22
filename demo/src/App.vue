@@ -1,7 +1,16 @@
 <template>
     <div id="app">
         <div class="header">
-            <vue-messenger ref="vue-messenger" :debug="true" type="error" :icon="true" title="title" description="message description" :more="['item 1', 'item 2']"></vue-messenger>
+            <vue-messenger
+                ref="vue-messenger"
+                :debug="true"
+                type="error"
+                :icon="true"
+                title="title"
+                description="message description"
+                :more="['item 1', 'item 2']"
+                @closeMessage="handleCloseMessage"
+            ></vue-messenger>
         </div>
         <div id="vue-messenger-demo">
             <br />
@@ -46,6 +55,9 @@ export default {
         }
     },
     methods: {
+        handleCloseMessage() {
+            console.log("close messasge event")
+        },
         titleMessageOnly(type = "default") {
             this.$refs["vue-messenger"].updateMessage({ type, title: "Title", icon: this.icon, debug: this.debug })
         },

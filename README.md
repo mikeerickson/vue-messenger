@@ -67,9 +67,34 @@ Vue Messenger provides the following `props`
 | `more-link-text`   | [String] (default: `"show more"`)            | Message displayed when `more` supplied                |
 | `debug`            | [Boolean] (default: `false`)                 | Console log debug information                         |
 
-## Message
+## Events
 
-You can procedurally update message from parent component using an the component `updateMessage` method which accepts on object of message options, containing one more `props` keys
+Vue Messenger provides the following `events`
+
+| **Event**      | **Description**                 |
+| -------------- | ------------------------------- |
+| `close`        | Event fired when message closed |
+| `closeMessage` | alias to `close` event          |
+
+## Methods
+
+Vue Messenger provides the following `methods`
+You can procedurally update message from parent component using an the component `updateMessage` method which accepts on `object` of message options
+
+**Note:** All options will override default component options
+
+| **Event**       | **Description**                                                            |
+| --------------- | -------------------------------------------------------------------------- |
+| `updateMessage` | Updates message (receives messasge `config` which may contain one or more) |
+| `config`        | type (_options_): message type                                             |
+|                 | title: message title                                                       |
+|                 | description: message description                                           |
+|                 | autoClose (false): message autoClose                                       |
+|                 | autoCloseDelay (7500): message autoCloseDelay                              |
+|                 | more ([]): array of `more` messages                                        |
+|                 | moreLinkText ('show more'): message displayed when more items supplied     |
+|                 | icon (false): message icon                                                 |
+|                 | debug (false): use message debug mode                                      |
 
 ```js
 let msgOptions = { type: "success", title: "Success", description: "Contact Updated Successfully" }
