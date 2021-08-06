@@ -33,7 +33,6 @@
     "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files",
     "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'",
     "pre-publish": "npm run lint && npm run test && npm run build",
-    "publish": "./tasks/publish.sh",
     "watch": "NODE_ENV=development webpack --progress --hide-modules --watch"
   },
   "repository": {
