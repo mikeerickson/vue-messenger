@@ -1,7 +1,7 @@
 {
   "name": "@codedungeon/vue-messenger",
   "version": "0.4.0",
-  "build": "66",
+  "build": "67",
   "description": "Vue Messenger provides an expressive suite of features and customization",
   "keywords": [
     "vue",
@@ -32,7 +32,7 @@
     "test": "./tasks/test.js",
     "todo": "leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files",
     "todo:print": "npm run todo && leasot -x './**/*.{ts,js,vue,sh}' --ignore './node_modules,./dist,./demo/node_modules' --tags 'review,note' --inline-files --reporter=vscode > TODO.md && echo './TODO.md created successfully'",
-    "prepublish": "npm run lint && npm run test && npm run build",
+    "pre-publish": "npm run lint && npm run test && npm run build",
     "watch": "NODE_ENV=development webpack --progress --hide-modules --watch"
   },
   "repository": {
