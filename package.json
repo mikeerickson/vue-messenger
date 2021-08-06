@@ -1,6 +1,6 @@
 {
   "name": "@codedungeon/vue-messenger",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "build": "64",
   "description": "Vue Messenger provides an expressive suite of features and customization",
   "keywords": [
@@ -35,7 +35,7 @@
     "prepublish": "npm run lint && npm run test && npm run build",
     "watch": "NODE_ENV=development webpack --progress --hide-modules --watch"
   },
-  "repository": {gs
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/mikeerickson/vue-messenger"
   },
